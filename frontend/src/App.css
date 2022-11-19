@@ -1,0 +1,56 @@
+.my-navbar {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  text-align: center;
+  
+}
+
+nav {
+  display: flex;
+  align-items: center;
+  justify-content: space-evenly;
+}
+
+a {
+  color: inherit;
+  text-decoration: inherit;
+  padding: 0;
+  margin: 0;
+}
+
+section{
+  margin: 5% 25%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+section header {
+  text-align: left;
+}
+
+.landing-page-img {
+  display: flex;
+  margin-top: 150px;
+  justify-content: center;
+  align-items: center;
+}
+
+.program-board {
+  display: flex;
+  justify-content: space-around;
+  align-items: baseline;
+  width: 100vw;
+}
+
+.my-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.card-desc {
+  width: 50%;
+}
