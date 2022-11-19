@@ -4,8 +4,8 @@ const mongoose = require("mongoose");
 
 const GroupSchema = new mongoose.Schema({
   name: { type: String, required: true },
-  members: [{ userID: String }],
-  events: [{ eventID: String }],
+  members: [{ type: String }],
+  events: [{ type: String }],
 });
 
 // CREATE MODEL

@@ -12,12 +12,19 @@ const index = (req, res) => {
 };
 
 const seed = (req, res) => {
-  db.Group.create(req.body, (err, createdGroup) => {
-    if (err) return res.status(404).json({ error: err.message });
-    return res
-      .status(200)
-      .json({ createdGroup, createdAt: new Date().toLocaleString() });
-  });
+  db.Group.insertMany(
+    [
+      { name: "Group 1" },
+      { name: "group2", members: ["1", "2"] },
+      { name: "group3", events: ["13", "25"] },
+    ],
+    (err, createdGroups) => {
+      if (err) return res.status(404).json({ error: err.message });
+      return res
+        .status(200)
+        .json({ createdGroups, createdAt: new Date().toLocaleString() });
+    }
+  );
 };
 
 module.exports = { index, seed };
