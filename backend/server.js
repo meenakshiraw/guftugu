@@ -29,6 +29,7 @@ require("./config/db.connections");
 const routes = require("./routes");
 app.use("/", routes.groups);
 app.use("/", routes.users);
+app.use("/", routes.events);
 
 app.listen(PORT, () => {
   console.log("Hey we are playing on our favorite port:", PORT);
