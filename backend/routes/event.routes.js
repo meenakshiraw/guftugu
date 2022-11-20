@@ -16,6 +16,6 @@ router.post("/event", ctrls.event.create);
 router.put("/event/:id", ctrls.event.update);
 
 // DELETE route to destroy a group
-router.delete("/event/:id", ctrls.groups.destroy);
+router.delete("/event/:id", ctrls.event.destroy);
 
 module.exports = router;
