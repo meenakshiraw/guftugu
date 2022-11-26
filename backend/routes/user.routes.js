@@ -3,6 +3,10 @@ const router = express.Router();
 
 const ctrls = require("../controllers");
 
+router.get("/allUsers", ctrls.user.index);
+
+router.get("/user/:id", ctrls.user.show);
+
 router.post("/register", ctrls.user.register);
 
 router.post("/signin", ctrls.user.signIn);

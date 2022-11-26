@@ -5,7 +5,7 @@ function Navbar() {
   return (
     <header className="my-navbar">
       <Link to="/">
-        <h1>Urdu Khana</h1>
+        <h1>گفتگو</h1>
       </Link>
       <nav>
         <Link to="/about-us">About</Link>

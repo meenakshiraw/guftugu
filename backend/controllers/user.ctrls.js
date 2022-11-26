@@ -92,8 +92,32 @@ const checkUser = (req, res, next) => {
   }
 };
 
+const index = (req, res) => {
+  db.User.find({}, (error, users) => {
+    if (error) return res.status(400).json({ error: error.message });
+
+    return res.status(200).json({
+      users,
+      requestedAt: new Date().toLocaleString(),
+    });
+  });
+};
+
+const show = (req, res) => {
+  db.User.findById(req.params.id, (error, foundUser) => {
+    if (error) return res.status(400).json({ error: error });
+
+    return res.status(200).json({
+      foundUser,
+      requestedAt: new Date().toLocaleString(),
+    });
+  });
+};
+
 module.exports = {
   register,
   signIn,
   checkUser,
+  index,
+  show,
 };

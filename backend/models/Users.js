@@ -7,6 +7,8 @@ const UserSchema = new mongoose.Schema({
   email: { type: String, required: true, unique: true },
   password: { type: String, required: true },
   isAdmin: Boolean,
+  myGroups: [{ type: String }],
+  myEvents: [{ type: String }],
 });
 
 // Gotta set up some bcrypt stuff to not actually store the real password!
