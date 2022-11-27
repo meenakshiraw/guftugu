@@ -62,10 +62,19 @@ section header {
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
+  justify-content: flex-start;
   margin: 0 30px
 }
 
 .card-desc {
   width: 50%;
+}
+
+.register-form {
+  display: flex;
+  flex-direction: column;
+}
+
+.register-form > * {
+  margin: 20px auto
 }
