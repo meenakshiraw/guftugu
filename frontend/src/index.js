@@ -1,9 +1,10 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import AboutUs from "./routes/AboutUs";
-import GetInvolved from "./routes/GetInvolved";
-import Programs from "./routes/Programs";
+import AboutUs from "./pages/AboutUs";
+import GetInvolved from "./pages/GetInvolved";
+import Programs from "./pages/Programs";
+import Group from "./pages/Group";
 import "./index.css";
 import App from "./App";
 
@@ -13,9 +14,10 @@ root.render(
     <BrowserRouter>
       <Routes>
         <Route path="/" element={<App />} />
-        <Route path="about-us" element={<AboutUs />} />
-        <Route path="programs" element={<Programs />} />
-        <Route path="get-involved" element={<GetInvolved />} />
+        <Route path="/about-us" element={<AboutUs />} />
+        <Route path="/programs" element={<Programs />} />
+        <Route path="/get-involved" element={<GetInvolved />} />
+        <Route path="/group/:id" element={<Group />} />
       </Routes>
     </BrowserRouter>
   </React.StrictMode>

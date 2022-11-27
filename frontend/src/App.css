@@ -3,7 +3,11 @@
   flex-direction: column;
   justify-content: center;
   text-align: center;
-  
+}
+
+.group-grid {
+  display: flex;
+  justify-content: center;
 }
 
 nav {
@@ -30,13 +34,6 @@ section header {
   text-align: left;
 }
 
-.landing-page-img {
-  display: flex;
-  margin-top: 150px;
-  justify-content: center;
-  align-items: center;
-}
-
 .program-board {
   display: flex;
   justify-content: space-around;
@@ -49,6 +46,7 @@ section header {
   flex-direction: column;
   align-items: center;
   justify-content: center;
+  margin: 0 30px
 }
 
 .card-desc {

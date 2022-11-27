@@ -114,10 +114,23 @@ const show = (req, res) => {
   });
 };
 
+const update = (req, res) => {
+  db.User.findByIdAndUpdate(
+    req.params.id,
+    { $set: req.body },
+    { new: true },
+    (err, updatedUser) => {
+      if (err) return res.status(400).json({ error: err });
+      return res.status(200).json(updatedUser);
+    }
+  );
+};
+
 module.exports = {
   register,
   signIn,
   checkUser,
   index,
   show,
+  update,
 };

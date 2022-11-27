@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import Card from "./components/Card";
 import "./App.css";
 import Navbar from "./components/Navbar";
 
@@ -49,7 +50,16 @@ function App() {
   return (
     <div className="App">
       <Navbar />
-      <div className="landing-page-img"></div>
+      <div className="group-grid">
+        {groupList.map((group) => (
+          <Card
+            key={group.id}
+            title={group.name}
+            imgUrl={group.img}
+            desc={"just some description"}
+          />
+        ))}
+      </div>
     </div>
   );
 }
