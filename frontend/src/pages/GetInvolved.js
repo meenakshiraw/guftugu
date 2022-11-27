@@ -1,10 +1,8 @@
 import React from "react";
-import Navbar from "../components/Navbar";
 
 function GetInvolved() {
   return (
     <div>
-      <Navbar />
       <section>
         <header>
           <h2>Get Involved</h2>

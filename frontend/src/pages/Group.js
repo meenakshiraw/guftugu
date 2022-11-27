@@ -17,6 +17,7 @@ function Group() {
     <div className="group-page">
       <h1>{groupInfo.name}</h1>
       <img src={groupInfo.img} alt={groupInfo.name} width="300px" />
+      <p>{groupInfo.desc}</p>
     </div>
   );
 }

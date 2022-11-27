@@ -1,7 +1,6 @@
 import { useState, useEffect } from "react";
 import Card from "./components/Card";
 import "./App.css";
-import Navbar from "./components/Navbar";
 
 function App() {
   const [currentUserId, setCurrentUserId] = useState("");
@@ -56,7 +55,6 @@ function App() {
 
   return (
     <div className="App">
-      <Navbar />
       {currentUsername && <h2>Welcome {currentUsername}</h2>}
       <h2>My Groups</h2>
       <div className="group-grid">
@@ -64,7 +62,7 @@ function App() {
           <Card
             key={group._id}
             title={group.name}
-            link={`/event/${group._id}`}
+            link={`/group/${group._id}`}
             imgUrl={group.img}
             desc={"just some description"}
           />

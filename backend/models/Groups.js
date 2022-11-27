@@ -7,6 +7,7 @@ const GroupSchema = new mongoose.Schema({
   members: [{ type: String }],
   events: [{ type: String }],
   img: String,
+  desc: { type: String, required: true },
 });
 
 // CREATE MODEL

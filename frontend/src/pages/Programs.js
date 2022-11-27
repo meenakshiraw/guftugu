@@ -1,11 +1,9 @@
 import React from "react";
-import Navbar from "../components/Navbar";
 import Card from "../components/Card";
 
 function Programs() {
   return (
     <div>
-      <Navbar />
       <section>
         <header>
           <h2>Programs</h2>

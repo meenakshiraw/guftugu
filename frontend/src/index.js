@@ -7,11 +7,13 @@ import Programs from "./pages/Programs";
 import Group from "./pages/Group";
 import "./index.css";
 import App from "./App";
+import Navbar from "./components/Navbar";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <React.StrictMode>
     <BrowserRouter>
+      <Navbar />
       <Routes>
         <Route path="/" element={<App />} />
         <Route path="/about-us" element={<AboutUs />} />
