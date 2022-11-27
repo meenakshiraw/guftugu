@@ -4,7 +4,8 @@ import "./App.css";
 import Navbar from "./components/Navbar";
 
 function App() {
-  const [currentUser, setCurrentUser] = useState("");
+  const [currentUserId, setCurrentUserId] = useState("");
+  const [currentUsername, setCurrentUsername] = useState("");
   const [eventList, setEventList] = useState([]);
   const [groupList, setGroupList] = useState([]);
 
@@ -20,11 +21,14 @@ function App() {
       },
     })
       .then((response) => response.json())
-      .then((res) => setCurrentUser(res.user));
+      .then((res) => {
+        setCurrentUsername(res.name);
+        setCurrentUserId(res.user);
+      });
   }, []);
 
   useEffect(() => {
-    fetch(`http://localhost:3009/user/${currentUser}`)
+    fetch(`http://localhost:3009/user/${currentUserId}`)
       .then((res) => res.json())
       .then((data) => {
         const myGroups = data.foundUser.myGroups;
@@ -35,28 +39,48 @@ function App() {
               setGroupList((prevState) => [...prevState, data.foundGroup])
             );
         }
+        const myEvents = data.foundUser.myEvents;
+        for (const event of myEvents) {
+          fetch(`http://localhost:3009/event/${event}`)
+            .then((res) => res.json())
+            .then((data) =>
+              setEventList((prevState) => [...prevState, data.foundEvent])
+            );
+        }
       });
-  }, [currentUser]);
-
-  useEffect(() => {
-    fetch("http://localhost:3009/event")
-      .then((res) => res.json())
-      .then((data) => setEventList(data.events));
-  }, []);
+  }, [currentUserId]);
 
   console.log("here is the event list!!", eventList);
   console.log("here is the group list!!", groupList);
+  console.log("here is the current user", currentUserId);
 
   return (
     <div className="App">
       <Navbar />
+      {currentUsername && <h2>Welcome {currentUsername}</h2>}
+      <h2>My Groups</h2>
       <div className="group-grid">
         {groupList.map((group) => (
           <Card
-            key={group.id}
+            key={group._id}
             title={group.name}
+            link={`/event/${group._id}`}
             imgUrl={group.img}
             desc={"just some description"}
+          />
+        ))}
+      </div>
+      <h2>My Upcoming Events</h2>
+      <div className="group-grid">
+        {eventList.map((event) => (
+          <Card
+            key={event.id}
+            title={event.name}
+            imgUrl={
+              "https://www.nordantech.com/media/pages/blog/community/8-tipps-fuer-ein-erfolgreiches-meeting/00022d9063-1643812301/meeting-tipps-erfolgreich-1200x630.jpg"
+            }
+            link={`http://${event.meetingURL}`}
+            desc={event.desc}
           />
         ))}
       </div>

@@ -42,7 +42,7 @@ const register = async (req, res, next) => {
       httpOnly: false,
       timeLimit,
     });
-    res.status(201).json({ user: user._id, created: true });
+    res.status(201).json({ user: user._id, name: user.name, created: true });
   } catch (err) {
     console.log(err); // console log the error
     const errors = handleErrors(err); // if an error was caught, show the error message that we created above
@@ -61,7 +61,7 @@ const signIn = async (req, res, next) => {
       httpOnly: false,
       timeLimit,
     });
-    res.status(200).json({ user: user._id, created: true });
+    res.status(200).json({ user: user._id, name: user.name, created: true });
   } catch (err) {
     console.log(err);
     const errors = handleErrors(err);
