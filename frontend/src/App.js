@@ -6,24 +6,30 @@ import { UserContext } from "./UserContext";
 function App() {
   const [eventList, setEventList] = useState([]);
   const [groupList, setGroupList] = useState([]);
-  const { user, setUser } = useContext(UserContext);
+  const { user } = useContext(UserContext);
 
-  useEffect(() => {
-    fetch("http://localhost:3009/signin", {
-      method: "POST",
-      body: JSON.stringify({
-        email: "usmanaqadri2@gmail.com",
-        password: "passy",
-      }),
-      headers: {
-        "Content-Type": "application/json",
-      },
-    })
-      .then((response) => response.json())
-      .then((res) => {
-        setUser(res);
-      });
-  }, []);
+  // useEffect(() => {
+  //   if (!user) {
+  //     window.location.href = "/";
+  //   }
+  // }, [user]);
+
+  // useEffect(() => {
+  //   fetch("http://localhost:3009/signin", {
+  //     method: "POST",
+  //     body: JSON.stringify({
+  //       email: "usmanaqadri2@gmail.com",
+  //       password: "passy",
+  //     }),
+  //     headers: {
+  //       "Content-Type": "application/json",
+  //     },
+  //   })
+  //     .then((response) => response.json())
+  //     .then((res) => {
+  //       setUser(res);
+  //     });
+  // }, []);
 
   useEffect(() => {
     try {
@@ -52,38 +58,41 @@ function App() {
     }
   }, [user]);
 
-  console.log("here is the event list!!", eventList);
-  console.log("here is the group list!!", groupList);
-
   return (
     <div className="App">
-      {user && <h2>Welcome {user.name}!</h2>}
-      <h2>My Groups</h2>
-      <div className="group-grid">
-        {groupList.map((group) => (
-          <Card
-            key={group._id}
-            title={group.name}
-            link={`/group/${group._id}`}
-            imgUrl={group.img}
-            desc={"just some description"}
-          />
-        ))}
-      </div>
-      <h2>My Upcoming Events</h2>
-      <div className="group-grid">
-        {eventList.map((event) => (
-          <Card
-            key={event.id}
-            title={event.name}
-            imgUrl={
-              "https://www.nordantech.com/media/pages/blog/community/8-tipps-fuer-ein-erfolgreiches-meeting/00022d9063-1643812301/meeting-tipps-erfolgreich-1200x630.jpg"
-            }
-            link={`http://${event.meetingURL}`}
-            desc={event.desc}
-          />
-        ))}
-      </div>
+      {user ? (
+        <>
+          {" "}
+          <h2>Welcome {user.name}!</h2> <h2>My Groups</h2>
+          <div className="group-grid">
+            {groupList.map((group) => (
+              <Card
+                key={group._id}
+                title={group.name}
+                link={`/group/${group._id}`}
+                imgUrl={group.img}
+                desc={"just some description"}
+              />
+            ))}
+          </div>
+          <h2>My Upcoming Events</h2>
+          <div className="group-grid">
+            {eventList.map((event) => (
+              <Card
+                key={event.id}
+                title={event.name}
+                imgUrl={
+                  "https://www.nordantech.com/media/pages/blog/community/8-tipps-fuer-ein-erfolgreiches-meeting/00022d9063-1643812301/meeting-tipps-erfolgreich-1200x630.jpg"
+                }
+                link={`http://${event.meetingURL}`}
+                desc={event.desc}
+              />
+            ))}
+          </div>
+        </>
+      ) : (
+        <h2>Please login or register ^</h2>
+      )}
     </div>
   );
 }

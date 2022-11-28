@@ -25,7 +25,7 @@ Modal.setAppElement("#root");
 function Navbar() {
   const [renderLogin, setRenderLogin] = useState();
   const [modalIsOpen, setModalOpen] = useState(false);
-  const { user } = useContext(UserContext);
+  const { user, setUser } = useContext(UserContext);
   const [loginInfo, setLoginInfo] = useState({
     name: "",
     username: "",
@@ -63,16 +63,22 @@ function Navbar() {
         headers: {
           "Content-Type": "application/json",
         },
-        credentials: "include",
       })
         .then((response) => response.json())
         .then((res) => {
-          console.log("here is the response", res);
+          if (res.created) {
+            setUser(res);
+            closeModal();
+          } else {
+            window.location.reload();
+          }
         });
     } catch (error) {}
   };
 
-  const handleLogout = () => {};
+  const handleLogout = () => {
+    setUser(null);
+  };
   return (
     <header>
       <Modal

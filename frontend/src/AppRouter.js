@@ -17,8 +17,7 @@ function AppRouter() {
       <UserContext.Provider value={value}>
         <Navbar />
         <Routes>
-          <Route path="/" element={<AboutUs />} />
-          <Route path="/myPage" element={<App />} />
+          <Route path="/" element={<App />} />
           <Route path="/about-us" element={<AboutUs />} />
           <Route path="/programs" element={<Programs />} />
           <Route path="/get-involved" element={<GetInvolved />} />
