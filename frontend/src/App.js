@@ -1,12 +1,12 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import Card from "./components/Card";
 import "./App.css";
+import { UserContext } from "./UserContext";
 
 function App() {
-  const [currentUserId, setCurrentUserId] = useState("");
-  const [currentUsername, setCurrentUsername] = useState("");
   const [eventList, setEventList] = useState([]);
   const [groupList, setGroupList] = useState([]);
+  const { user, setUser } = useContext(UserContext);
 
   useEffect(() => {
     fetch("http://localhost:3009/signin", {
@@ -21,41 +21,43 @@ function App() {
     })
       .then((response) => response.json())
       .then((res) => {
-        setCurrentUsername(res.name);
-        setCurrentUserId(res.user);
+        setUser(res);
       });
   }, []);
 
   useEffect(() => {
-    fetch(`http://localhost:3009/user/${currentUserId}`)
-      .then((res) => res.json())
-      .then((data) => {
-        const myGroups = data.foundUser.myGroups;
-        for (const group of myGroups) {
-          fetch(`http://localhost:3009/group/${group}`)
-            .then((res) => res.json())
-            .then((data) =>
-              setGroupList((prevState) => [...prevState, data.foundGroup])
-            );
-        }
-        const myEvents = data.foundUser.myEvents;
-        for (const event of myEvents) {
-          fetch(`http://localhost:3009/event/${event}`)
-            .then((res) => res.json())
-            .then((data) =>
-              setEventList((prevState) => [...prevState, data.foundEvent])
-            );
-        }
-      });
-  }, [currentUserId]);
+    try {
+      fetch(`http://localhost:3009/user/${user.user}`)
+        .then((res) => res.json())
+        .then((data) => {
+          const myGroups = data.foundUser.myGroups;
+          for (const group of myGroups) {
+            fetch(`http://localhost:3009/group/${group}`)
+              .then((res) => res.json())
+              .then((data) =>
+                setGroupList((prevState) => [...prevState, data.foundGroup])
+              );
+          }
+          const myEvents = data.foundUser.myEvents;
+          for (const event of myEvents) {
+            fetch(`http://localhost:3009/event/${event}`)
+              .then((res) => res.json())
+              .then((data) =>
+                setEventList((prevState) => [...prevState, data.foundEvent])
+              );
+          }
+        });
+    } catch (error) {
+      console.log(error);
+    }
+  }, [user]);
 
   console.log("here is the event list!!", eventList);
   console.log("here is the group list!!", groupList);
-  console.log("here is the current user", currentUserId);
 
   return (
     <div className="App">
-      {currentUsername && <h2>Welcome {currentUsername}</h2>}
+      {user && <h2>Welcome {user.name}!</h2>}
       <h2>My Groups</h2>
       <div className="group-grid">
         {groupList.map((group) => (

@@ -73,8 +73,32 @@ section header {
 .register-form {
   display: flex;
   flex-direction: column;
+  justify-content: flex-start;
 }
 
 .register-form > * {
   margin: 20px auto
+}
+
+button {
+  background: none;
+	color: inherit;
+	border: none;
+	padding: 0;
+	font: inherit;
+	cursor: pointer;
+	outline: inherit;
+  transition-duration: 0.4s;
+  color: white;
+  background-color: #008cba;
+  border-radius: 5px;
+  border: solid 1px #008cba;
+  padding: 7px 20px;
+}
+
+button:hover {
+  cursor: pointer;
+  background-color: white;
+  color: #008cba;
+  border: solid 1px #008cba;
 }
