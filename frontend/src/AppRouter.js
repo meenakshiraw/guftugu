@@ -8,6 +8,7 @@ import "./index.css";
 import App from "./App";
 import Navbar from "./components/Navbar";
 import { UserContext } from "./UserContext";
+import Groups from "./pages/Groups";
 
 function AppRouter() {
   const [user, setUser] = useState(null);
@@ -18,6 +19,7 @@ function AppRouter() {
         <Navbar />
         <Routes>
           <Route path="/" element={<App />} />
+          <Route path="/group" element={<Groups />} />
           <Route path="/about-us" element={<AboutUs />} />
           <Route path="/programs" element={<Programs />} />
           <Route path="/get-involved" element={<GetInvolved />} />

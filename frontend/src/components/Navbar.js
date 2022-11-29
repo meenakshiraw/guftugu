@@ -66,7 +66,7 @@ function Navbar() {
       })
         .then((response) => response.json())
         .then((res) => {
-          if (res.created) {
+          if (res.created || res.loggedIn) {
             setUser(res);
             closeModal();
           } else {
