@@ -61,7 +61,15 @@ const signIn = async (req, res, next) => {
       httpOnly: false,
       timeLimit,
     });
-    res.status(200).json({ user: user._id, name: user.name, loggedIn: true });
+    res
+      .status(200)
+      .json({
+        user: user._id,
+        name: user.name,
+        myEvents: user.myEvents,
+        myGroups: user.myGroups,
+        loggedIn: true,
+      });
   } catch (err) {
     console.log(err);
     const errors = handleErrors(err);

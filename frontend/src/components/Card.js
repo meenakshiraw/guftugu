@@ -5,6 +5,7 @@ import { UserContext } from "../UserContext";
 function Card(props) {
   const [isMember, setIsMember] = useState(false);
   const { user } = useContext(UserContext);
+  console.log("here is the user", user);
   const handleJoin = () => {};
   return (
     <div className="my-card">
@@ -14,9 +15,12 @@ function Card(props) {
           <div className="overlay">
             <h3>{props.title}</h3>
             <p className="card-desc">{props.desc}</p>
-            {user && (
-              <button style={{ marginBottom: "10px" }}>Join Group</button>
-            )}
+            {user &&
+              (user.myGroups.includes(props.cardId) ? (
+                <button style={{ marginBottom: "10px" }}>Leave Group</button>
+              ) : (
+                <button style={{ marginBottom: "10px" }}>Join Group</button>
+              ))}
           </div>
         </div>
       </Link>

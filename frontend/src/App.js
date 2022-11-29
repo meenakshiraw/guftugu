@@ -93,6 +93,7 @@ function App() {
             {groupList.map((group) => (
               <Card
                 key={group._id}
+                cardId={group._id}
                 title={group.name}
                 link={`/group/${group._id}`}
                 imgUrl={group.img}
@@ -105,6 +106,7 @@ function App() {
             {eventList.map((event) => (
               <Card
                 key={event.id}
+                cardId={event.id}
                 title={event.name}
                 imgUrl={
                   "https://www.nordantech.com/media/pages/blog/community/8-tipps-fuer-ein-erfolgreiches-meeting/00022d9063-1643812301/meeting-tipps-erfolgreich-1200x630.jpg"
