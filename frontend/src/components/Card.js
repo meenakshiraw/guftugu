@@ -17,7 +17,12 @@ function Card(props) {
             <p className="card-desc">{props.desc}</p>
             {user &&
               (user.myGroups.includes(props.cardId) ? (
-                <button style={{ marginBottom: "10px" }}>Leave Group</button>
+                <button
+                  className="secondary-button"
+                  style={{ marginBottom: "10px" }}
+                >
+                  Leave Group
+                </button>
               ) : (
                 <button style={{ marginBottom: "10px" }}>Join Group</button>
               ))}

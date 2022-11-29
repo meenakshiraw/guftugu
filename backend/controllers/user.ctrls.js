@@ -61,15 +61,14 @@ const signIn = async (req, res, next) => {
       httpOnly: false,
       timeLimit,
     });
-    res
-      .status(200)
-      .json({
-        user: user._id,
-        name: user.name,
-        myEvents: user.myEvents,
-        myGroups: user.myGroups,
-        loggedIn: true,
-      });
+    res.status(200).json({
+      user: user._id,
+      name: user.name,
+      myEvents: user.myEvents,
+      myGroups: user.myGroups,
+      isAdmin: user.isAdmin,
+      loggedIn: true,
+    });
   } catch (err) {
     console.log(err);
     const errors = handleErrors(err);
@@ -123,6 +122,13 @@ const show = (req, res) => {
 };
 
 const update = (req, res) => {
+  if ("isAdmin" in req.body) {
+    if (req.body["isAdmin"] === "true") {
+      req.body["isAdmin"] = true;
+    } else {
+      req.body["isAdmin"] = false;
+    }
+  }
   db.User.findByIdAndUpdate(
     req.params.id,
     { $set: req.body },

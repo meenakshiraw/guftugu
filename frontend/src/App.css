@@ -27,6 +27,12 @@
   flex-wrap: wrap;
 }
 
+.group-page {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
 nav {
   display: flex;
   align-items: center;
@@ -101,6 +107,28 @@ button:hover {
   background-color: white;
   color: #008cba;
   border: solid 1px #008cba;
+}
+
+.secondary-button {
+  background-color: #f56161;
+  border: solid 1px #f56161;
+}
+
+.secondary-button:hover {
+  background-color: white; 
+  color: #f56161;
+  border: solid 1px #f56161;
+}
+
+.tertiary-button {
+  background-color: #aaaaaa;
+  border: solid 1px #aaaaaa;
+}
+
+.tertiary-button:hover {
+  background-color: white; 
+  color: #aaaaaa;
+  border: solid 1px #aaaaaa;
 }
 
 .container {
