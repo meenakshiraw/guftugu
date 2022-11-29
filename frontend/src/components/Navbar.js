@@ -78,6 +78,7 @@ function Navbar() {
 
   const handleLogout = () => {
     setUser(null);
+    window.location.reload();
   };
   return (
     <header>
@@ -198,6 +199,7 @@ function Navbar() {
           <Link to="/about-us">About</Link>
           <Link to="/programs">Programs</Link>
           <Link to="/group">Groups</Link>
+          <Link to="/event">Events</Link>
           <Link to="/get-involved">Get Involved</Link>
           {user ? (
             <button onClick={handleLogout}>Logout</button>

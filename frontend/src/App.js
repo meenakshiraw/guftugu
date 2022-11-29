@@ -2,7 +2,7 @@ import React, { useState, useEffect, useContext } from "react";
 import Card from "./components/Card";
 import "./App.css";
 import { UserContext } from "./UserContext";
-import { Navigate } from "react-router-dom";
+import { Link, Navigate } from "react-router-dom";
 
 function App() {
   const [eventList, setEventList] = useState([]);
@@ -90,6 +90,14 @@ function App() {
           {" "}
           <h1>Welcome {user.name}!</h1>
           <h2>My Groups</h2>
+          {groupList.length === 0 && (
+            <p>
+              You're not part of any groups. Find a group to join here{" "}
+              <Link style={{ color: "blue" }} to={"/group"}>
+                here!
+              </Link>
+            </p>
+          )}
           <div className="group-grid">
             {groupList.map((group) => (
               <Card
@@ -103,6 +111,14 @@ function App() {
             ))}
           </div>
           <h2>My Upcoming Events</h2>
+          {eventList.length === 0 && (
+            <p>
+              You're not part of any events. Find an event to join here{" "}
+              <Link style={{ color: "blue" }} to={"/event"}>
+                here!
+              </Link>
+            </p>
+          )}
           <div className="group-grid">
             {eventList.map((event) => (
               <Card
