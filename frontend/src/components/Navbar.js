@@ -180,6 +180,7 @@ function Navbar() {
         <div className="nav-links">
           <Link to="/about-us">About</Link>
           <Link to="/programs">Programs</Link>
+          <Link to="/group">Groups</Link>
           <Link to="/get-involved">Get Involved</Link>
           {user ? (
             <button onClick={handleLogout}>Logout</button>

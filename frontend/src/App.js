@@ -2,11 +2,16 @@ import React, { useState, useEffect, useContext } from "react";
 import Card from "./components/Card";
 import "./App.css";
 import { UserContext } from "./UserContext";
+import { Navigate } from "react-router-dom";
 
 function App() {
   const [eventList, setEventList] = useState([]);
   const [groupList, setGroupList] = useState([]);
   const { user } = useContext(UserContext);
+
+  if (!user) {
+    return <Navigate to={"/group"} />;
+  }
 
   // useEffect(() => {
   //   if (!user) {

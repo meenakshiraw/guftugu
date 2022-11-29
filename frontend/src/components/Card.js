@@ -5,7 +5,6 @@ import { UserContext } from "../UserContext";
 function Card(props) {
   const [isMember, setIsMember] = useState(false);
   const { user } = useContext(UserContext);
-  console.log("here is the user", user);
   const handleJoin = () => {};
   return (
     <div className="my-card">
