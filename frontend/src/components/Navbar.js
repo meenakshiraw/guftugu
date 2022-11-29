@@ -2,27 +2,27 @@ import React, { useState, useContext } from "react";
 import Modal from "react-modal";
 import { UserContext } from "../UserContext";
 import { Link, Navigate } from "react-router-dom";
-
-const customStyles = {
-  overlay: {
-    backgroundColor: "rgba(0, 0, 0, 0.75)",
-  },
-  content: {
-    backgroundColor: "white",
-    display: "flex",
-    flexDirection: "column",
-    width: "20em",
-    maxHeight: "60vh",
-    margin: "0 auto",
-    padding: "20px",
-    border: "none",
-    borderRadius: "10px",
-  },
-};
-
-Modal.setAppElement("#root");
+import CloseOutlinedIcon from "@mui/icons-material/CloseOutlined";
 
 function Navbar() {
+  const customStyles = {
+    overlay: {
+      backgroundColor: "rgba(0, 0, 0, 0.75)",
+    },
+    content: {
+      backgroundColor: "white",
+      display: "flex",
+      flexDirection: "column",
+      width: "20em",
+      maxHeight: "60vh",
+      margin: "0 auto",
+      padding: "20px",
+      border: "none",
+      borderRadius: "10px",
+    },
+  };
+
+  Modal.setAppElement("#root");
   const [renderLogin, setRenderLogin] = useState();
   const [modalIsOpen, setModalOpen] = useState(false);
   const { user, setUser } = useContext(UserContext);
@@ -89,7 +89,13 @@ function Navbar() {
       >
         {renderLogin ? (
           <>
-            <h2>Log In</h2>
+            <header className="form-header">
+              <h2>Log In</h2>
+              <CloseOutlinedIcon
+                sx={{ cursor: "pointer" }}
+                onClick={() => closeModal()}
+              />
+            </header>
             <form
               className="register-form"
               id="signin-form"
@@ -126,10 +132,15 @@ function Navbar() {
           </>
         ) : (
           <>
-            <h2>Register</h2>
+            <header className="form-header">
+              <h2>Register</h2>
+              <CloseOutlinedIcon
+                sx={{ cursor: "pointer" }}
+                onClick={() => closeModal()}
+              />
+            </header>
             <p>
-              By continuing, you agree are setting up a Guftugu account and
-              agree to our User Agreement and Privacy Policy.
+              By continuing, you agree to our User Agreement and Privacy Policy.
             </p>
             <form
               className="register-form"
