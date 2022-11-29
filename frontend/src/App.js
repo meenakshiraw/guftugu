@@ -88,7 +88,8 @@ function App() {
       {user ? (
         <>
           {" "}
-          <h2>Welcome {user.name}!</h2> <h2>My Groups</h2>
+          <h1>Welcome {user.name}!</h1>
+          <h2>My Groups</h2>
           <div className="group-grid">
             {groupList.map((group) => (
               <Card
@@ -105,13 +106,11 @@ function App() {
           <div className="group-grid">
             {eventList.map((event) => (
               <Card
-                key={event.id}
-                cardId={event.id}
+                key={event._id}
+                cardId={event._id}
                 title={event.name}
-                imgUrl={
-                  "https://www.nordantech.com/media/pages/blog/community/8-tipps-fuer-ein-erfolgreiches-meeting/00022d9063-1643812301/meeting-tipps-erfolgreich-1200x630.jpg"
-                }
-                link={`http://${event.meetingURL}`}
+                imgUrl={event.img}
+                link={`/event/${event._id}`}
                 desc={event.desc}
               />
             ))}

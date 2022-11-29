@@ -92,7 +92,7 @@ function Navbar() {
             <header className="form-header">
               <h2>Log In</h2>
               <CloseOutlinedIcon
-                sx={{ cursor: "pointer" }}
+                className="close-button"
                 onClick={() => closeModal()}
               />
             </header>
@@ -108,6 +108,7 @@ function Navbar() {
                 id={"email"}
                 onChange={handleChange}
                 value={loginInfo.email}
+                required
               />
               <input
                 type="password"
@@ -116,11 +117,12 @@ function Navbar() {
                 id={"password"}
                 onChange={handleChange}
                 value={loginInfo.password}
+                required
               />
               <button>Login</button>
             </form>
-            <p style={{ marginTop: "auto" }}>
-              New to Guftugu?{" "}
+            <div className="form-footer">
+              <p>New to Guftugu?</p>
               <button
                 onClick={() => {
                   setRenderLogin(false);
@@ -128,14 +130,14 @@ function Navbar() {
               >
                 Sign up!
               </button>
-            </p>
+            </div>
           </>
         ) : (
           <>
             <header className="form-header">
               <h2>Register</h2>
               <CloseOutlinedIcon
-                sx={{ cursor: "pointer" }}
+                className="close-button"
                 onClick={() => closeModal()}
               />
             </header>
@@ -154,6 +156,7 @@ function Navbar() {
                 id={"name"}
                 onChange={handleChange}
                 value={loginInfo.name}
+                required
               />
               <input
                 type="text"
@@ -162,6 +165,7 @@ function Navbar() {
                 id={"username"}
                 onChange={handleChange}
                 value={loginInfo.username}
+                required
               />
               <input
                 type="email"
@@ -170,6 +174,7 @@ function Navbar() {
                 id={"email"}
                 onChange={handleChange}
                 value={loginInfo.email}
+                required
               />
               <input
                 type="password"
@@ -178,6 +183,7 @@ function Navbar() {
                 id={"password"}
                 onChange={handleChange}
                 value={loginInfo.password}
+                required
               />
               <button>Sign Up</button>
             </form>

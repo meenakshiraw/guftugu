@@ -172,6 +172,26 @@ button:hover {
   margin-bottom: 15px;
 }
 
+.form-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: auto;
+}
+
+.close-button {
+  border: 1px solid rgb(255, 255, 255);
+  border-radius: 5px;
+}
+
+.close-button:hover {
+  cursor: pointer;
+  transition: 0.5s ease;
+  border: 1px solid black;
+  border-radius: 5px;
+  color: #979797;
+}
+
 .form-row {
   display: flex;
   justify-content: flex-end;

@@ -76,68 +76,73 @@ function Group() {
   };
 
   return (
-    <div className="group-page">
-      <Modal
-        isOpen={modalIsOpen}
-        onRequestClose={closeModal}
-        style={customStyles}
-        contentLabel="Example Modal"
-      >
-        <header className="form-header">
-          <h2>Edit Group</h2>
-          <CloseOutlinedIcon
-            sx={{ cursor: "pointer" }}
-            onClick={() => closeModal()}
-          />
-        </header>
-        <form id="update-group" onSubmit={handleUpdate}>
-          <div className="form-row">
-            <label htmlFor="name">Name:</label>
-            <input
-              type={"text"}
-              name={"name"}
-              id={"name"}
-              placeholder={groupInfo.name}
-              value={updatedGroupInfo.name}
-              onChange={handleChange}
+    <>
+      <div className="group-page">
+        <Modal
+          isOpen={modalIsOpen}
+          onRequestClose={closeModal}
+          style={customStyles}
+          contentLabel="Example Modal"
+        >
+          <header className="form-header">
+            <h2>Edit Group</h2>
+            <CloseOutlinedIcon
+              className="close-button"
+              onClick={() => closeModal()}
             />
-          </div>
-          <div className="form-row">
-            <label htmlFor="desc">Description:</label>
-            <input
-              type={"text"}
-              name={"desc"}
-              id={"desc"}
-              placeholder={groupInfo.desc}
-              value={updatedGroupInfo.desc}
-              onChange={handleChange}
-            />
-          </div>
-          <div className="form-row">
-            <label htmlFor="img">Image URL:</label>
-            <input
-              type={"text"}
-              name={"img"}
-              id={"img"}
-              placeholder={groupInfo.img}
-              value={updatedGroupInfo.img}
-              onChange={handleChange}
-            />
-          </div>
-          <div className="form-row">
-            <button className="tertiary-button">Edit</button>
-          </div>
-        </form>
-      </Modal>
-      <h1>{groupInfo.name}</h1>
-      <img src={groupInfo.img} alt={groupInfo.name} width="300px" />
-      <p>{groupInfo.desc}</p>
-      {user && user.isAdmin && (
-        <button onClick={() => openModal()} className="tertiary-button">
-          Edit
-        </button>
-      )}
-    </div>
+          </header>
+          <form id="update-group" onSubmit={handleUpdate}>
+            <div className="form-row">
+              <label htmlFor="name">Name:</label>
+              <input
+                type={"text"}
+                name={"name"}
+                id={"name"}
+                placeholder={groupInfo.name}
+                value={updatedGroupInfo.name}
+                onChange={handleChange}
+              />
+            </div>
+            <div className="form-row">
+              <label htmlFor="desc">Description:</label>
+              <input
+                type={"text"}
+                name={"desc"}
+                id={"desc"}
+                placeholder={groupInfo.desc}
+                value={updatedGroupInfo.desc}
+                onChange={handleChange}
+              />
+            </div>
+            <div className="form-row">
+              <label htmlFor="img">Image URL:</label>
+              <input
+                type={"text"}
+                name={"img"}
+                id={"img"}
+                placeholder={groupInfo.img}
+                value={updatedGroupInfo.img}
+                onChange={handleChange}
+              />
+            </div>
+            <div className="form-row">
+              <button className="tertiary-button">Edit</button>
+            </div>
+          </form>
+        </Modal>
+        <h1>{groupInfo.name}</h1>
+        <img src={groupInfo.img} alt={groupInfo.name} width="300px" />
+        <p>{groupInfo.desc}</p>
+        {user && user.isAdmin && (
+          <button onClick={() => openModal()} className="tertiary-button">
+            Edit
+          </button>
+        )}
+      </div>
+      <div>
+        <h2>Upcoming Events:</h2>
+      </div>
+    </>
   );
 }
 
