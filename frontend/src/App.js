@@ -40,17 +40,37 @@ function App() {
           for (const group of myGroups) {
             fetch(`http://localhost:3009/group/${group}`)
               .then((res) => res.json())
-              .then((data) =>
-                setGroupList((prevState) => [...prevState, data.foundGroup])
-              );
+              .then((data) => {
+                setGroupList((prevState) => {
+                  if (
+                    prevState
+                      .map((group) => group._id)
+                      .includes(data.foundGroup._id)
+                  ) {
+                    return [...prevState];
+                  } else {
+                    return [...prevState, data.foundGroup];
+                  }
+                });
+              });
           }
           const myEvents = data.foundUser.myEvents;
           for (const event of myEvents) {
             fetch(`http://localhost:3009/event/${event}`)
               .then((res) => res.json())
-              .then((data) =>
-                setEventList((prevState) => [...prevState, data.foundEvent])
-              );
+              .then((data) => {
+                setEventList((prevState) => {
+                  if (
+                    prevState
+                      .map((event) => event._id)
+                      .includes(data.foundEvent._id)
+                  ) {
+                    return [...prevState];
+                  } else {
+                    return [...prevState, data.foundEvent];
+                  }
+                });
+              });
           }
         });
     } catch (error) {

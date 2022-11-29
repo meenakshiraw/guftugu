@@ -129,11 +129,10 @@ button:hover {
   flex-direction: column;
   justify-content: flex-start;
   align-items: center;
-  transition: .5s;
+  transition: 0.5s;
 }
 
 .container:hover .overlay {
-  transition: .5s;
   opacity: 1;
   backdrop-filter: blur(10px);
 }
