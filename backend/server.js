@@ -6,7 +6,8 @@ require("dotenv").config();
 const session = require("express-session");
 const SESSION_SECRET = process.env.SESSION_SECRET;
 const cookieParser = require("cookie-parser");
-const PORT = 3009;
+//port connection
+const PORT = process.env.PORT || 3009;
 
 // middleware
 app.use(express.json());
