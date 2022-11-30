@@ -1,6 +1,6 @@
 import React, { useEffect, useState, useContext } from "react";
 import Modal from "react-modal";
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 import { UserContext } from "../UserContext";
 import CloseOutlinedIcon from "@mui/icons-material/CloseOutlined";
 import CheckIcon from "@mui/icons-material/Check";
@@ -25,7 +25,6 @@ function Group() {
 
   Modal.setAppElement("#root");
   const [modalIsOpen, setModalOpen] = useState(false);
-  const [isMember, setIsMember] = useState(false);
   const { user, setUser } = useContext(UserContext);
   const [groupInfo, setGroupInfo] = useState({});
   const [updatedGroupInfo, setUpdatedGroupInfo] = useState({
@@ -34,13 +33,8 @@ function Group() {
     name: "",
   });
   const { id } = useParams();
-  useEffect(() => {
-    if (user) {
-      if (user.myGroups.includes(id)) {
-        setIsMember(true);
-      }
-    }
-  }, []);
+  const navigate = useNavigate();
+
   useEffect(() => {
     fetch(`${process.env.REACT_APP_API_SERVER}/group/${id}`)
       .then((res) => res.json())
@@ -63,7 +57,7 @@ function Group() {
   const handleUpdate = (e) => {
     e.preventDefault();
     const reqBody = Object.fromEntries(
-      Object.entries(updatedGroupInfo).filter(([key, value]) => value != "")
+      Object.entries(updatedGroupInfo).filter(([key, value]) => value !== "")
     );
     fetch(`${process.env.REACT_APP_API_SERVER}/group/${id}`, {
       method: "PUT",
@@ -110,7 +104,7 @@ function Group() {
       });
   };
 
-  const handleLeave = () => {
+  const handleLeave = async () => {
     const reqBody = user.myGroups.filter((group) => group !== id);
     fetch(`${process.env.REACT_APP_API_SERVER}/user/${user.user}`, {
       method: "PUT",
@@ -133,6 +127,17 @@ function Group() {
             loggedIn: true,
           });
         }
+      });
+  };
+
+  const handleDelete = async () => {
+    await handleLeave();
+    fetch(`${process.env.REACT_APP_API_SERVER}/group/${id}`, {
+      method: "DELETE",
+    })
+      .then((response) => response.json())
+      .then((res) => {
+        navigate("/group");
       });
   };
 
@@ -195,9 +200,22 @@ function Group() {
         <img src={groupInfo.img} alt={groupInfo.name} width="300px" />
         <p>{groupInfo.desc}</p>
         {user && user.isAdmin && (
-          <button onClick={() => openModal()} className="tertiary-button">
-            Edit
-          </button>
+          <div>
+            <button
+              style={{ margin: "10px" }}
+              onClick={() => openModal()}
+              className="tertiary-button"
+            >
+              Edit
+            </button>
+            <button
+              style={{ margin: "10px" }}
+              onClick={handleDelete}
+              className="secondary-button"
+            >
+              Delete
+            </button>
+          </div>
         )}
         {user && (
           <div className="event-rsvp">
@@ -217,9 +235,9 @@ function Group() {
           </div>
         )}
       </div>
-      <div>
+      {/* <div>
         <h2>Upcoming Events:</h2>
-      </div>
+      </div> */}
     </>
   );
 }

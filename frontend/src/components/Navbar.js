@@ -1,7 +1,7 @@
 import React, { useState, useContext } from "react";
 import Modal from "react-modal";
 import { UserContext } from "../UserContext";
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import CloseOutlinedIcon from "@mui/icons-material/CloseOutlined";
 
 function Navbar() {
@@ -23,7 +23,6 @@ function Navbar() {
   };
 
   Modal.setAppElement("#root");
-  const navigate = useNavigate();
   const [renderLogin, setRenderLogin] = useState();
   const [modalIsOpen, setModalOpen] = useState(false);
   const { user, setUser } = useContext(UserContext);
@@ -74,7 +73,9 @@ function Navbar() {
             window.location.reload();
           }
         });
-    } catch (error) {}
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   const handleLogout = () => {

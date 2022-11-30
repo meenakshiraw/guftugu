@@ -2,7 +2,6 @@ import React, { useState, useMemo } from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import AboutUs from "./pages/AboutUs";
 import GetInvolved from "./pages/GetInvolved";
-import Programs from "./pages/Programs";
 import Group from "./pages/Group";
 import "./index.css";
 import App from "./App";

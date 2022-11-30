@@ -14,24 +14,7 @@ function App() {
     if (!user) {
       navigate("/about-us");
     }
-  }, []);
-
-  // useEffect(() => {
-  //   fetch("http://localhost:3009/signin", {
-  //     method: "POST",
-  //     body: JSON.stringify({
-  //       email: "usmanaqadri2@gmail.com",
-  //       password: "passy",
-  //     }),
-  //     headers: {
-  //       "Content-Type": "application/json",
-  //     },
-  //   })
-  //     .then((response) => response.json())
-  //     .then((res) => {
-  //       setUser(res);
-  //     });
-  // }, []);
+  });
 
   useEffect(() => {
     fetch(`${process.env.REACT_APP_API_SERVER}/user/${user?.user}`)
@@ -86,8 +69,6 @@ function App() {
       });
   }, [user]);
 
-  console.log("HERE IS EVENT LIST", eventList);
-  console.log("HERE IS GROUP LIST", groupList);
   return (
     <div className="App">
       {user ? (
@@ -113,7 +94,6 @@ function App() {
                 imgUrl={group.img}
                 desc={group.desc}
                 type={"Group"}
-                attribute={"myGroups"}
               />
             ))}
           </div>
@@ -132,9 +112,10 @@ function App() {
                 key={event._id}
                 cardId={event._id}
                 title={event.name}
-                imgUrl={event.img}
                 link={`/event/${event._id}`}
+                imgUrl={event.img}
                 desc={event.desc}
+                type={"Event"}
               />
             ))}
           </div>

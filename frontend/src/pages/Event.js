@@ -1,6 +1,6 @@
 import React, { useEffect, useState, useContext } from "react";
 import CheckIcon from "@mui/icons-material/Check";
-import { useParams, useNavigate, Navigate } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 import { UserContext } from "../UserContext";
 
 function Event() {
@@ -40,7 +40,7 @@ function Event() {
         }
       });
   };
-  const leaveEvent = () => {
+  const leaveEvent = async () => {
     const reqBody = user.myEvents.filter((event) => event !== id);
     fetch(`${process.env.REACT_APP_API_SERVER}/user/${user.user}`, {
       method: "PUT",
@@ -66,7 +66,8 @@ function Event() {
       });
   };
 
-  const handleDelete = () => {
+  const handleDelete = async () => {
+    await leaveEvent();
     fetch(`${process.env.REACT_APP_API_SERVER}/event/${id}`, {
       method: "DELETE",
     })
