@@ -2,22 +2,19 @@ import React, { useState, useEffect, useContext } from "react";
 import Card from "./components/Card";
 import "./App.css";
 import { UserContext } from "./UserContext";
-import { Link, Navigate } from "react-router-dom";
+import { Link, Navigate, useNavigate } from "react-router-dom";
 
 function App() {
+  const { user } = useContext(UserContext);
   const [eventList, setEventList] = useState([]);
   const [groupList, setGroupList] = useState([]);
-  const { user } = useContext(UserContext);
+  const navigate = useNavigate();
 
-  if (!user) {
-    return <Navigate to={"/group"} />;
-  }
-
-  // useEffect(() => {
-  //   if (!user) {
-  //     window.location.href = "/";
-  //   }
-  // }, [user]);
+  useEffect(() => {
+    if (!user) {
+      navigate("/about-us");
+    }
+  }, []);
 
   // useEffect(() => {
   //   fetch("http://localhost:3009/signin", {
@@ -37,17 +34,18 @@ function App() {
   // }, []);
 
   useEffect(() => {
-    try {
-      fetch(`${process.env.REACT_APP_API_SERVER}/user/${user.user}`)
-        .then((res) => res.json())
-        .then((data) => {
-          const myGroups = data.foundUser.myGroups;
-          for (const group of myGroups) {
+    fetch(`${process.env.REACT_APP_API_SERVER}/user/${user?.user}`)
+      .then((res) => res.json())
+      .then((data) => {
+        const myGroups = data.foundUser.myGroups;
+        for (const group of myGroups) {
+          try {
             fetch(`${process.env.REACT_APP_API_SERVER}/group/${group}`)
               .then((res) => res.json())
               .then((data) => {
                 setGroupList((prevState) => {
                   if (
+                    prevState.length !== 0 &&
                     prevState
                       .map((group) => group._id)
                       .includes(data.foundGroup._id)
@@ -58,17 +56,22 @@ function App() {
                   }
                 });
               });
+          } catch (error) {
+            console.log(error);
           }
-          const myEvents = data.foundUser.myEvents;
-          for (const event of myEvents) {
+        }
+        const myEvents = data.foundUser.myEvents;
+        for (const event of myEvents) {
+          try {
             fetch(`${process.env.REACT_APP_API_SERVER}/event/${event}`)
               .then((res) => res.json())
               .then((data) => {
                 setEventList((prevState) => {
                   if (
+                    prevState.length !== 0 &&
                     prevState
-                      .map((event) => event._id)
-                      .includes(data.foundEvent._id)
+                      .map((event) => event?.id)
+                      .includes(data.foundEvent.id)
                   ) {
                     return [...prevState];
                   } else {
@@ -76,13 +79,15 @@ function App() {
                   }
                 });
               });
+          } catch (error) {
+            console.log(error);
           }
-        });
-    } catch (error) {
-      console.log(error);
-    }
+        }
+      });
   }, [user]);
 
+  console.log("HERE IS EVENT LIST", eventList);
+  console.log("HERE IS GROUP LIST", groupList);
   return (
     <div className="App">
       {user ? (
@@ -92,7 +97,7 @@ function App() {
           <h2>My Groups</h2>
           {groupList.length === 0 && (
             <p>
-              You're not part of any groups. Find a group to join here{" "}
+              You're not part of any groups. Find a group to join{" "}
               <Link style={{ color: "blue" }} to={"/group"}>
                 here!
               </Link>
@@ -106,14 +111,16 @@ function App() {
                 title={group.name}
                 link={`/group/${group._id}`}
                 imgUrl={group.img}
-                desc={"just some description"}
+                desc={group.desc}
+                type={"Group"}
+                attribute={"myGroups"}
               />
             ))}
           </div>
           <h2>My Upcoming Events</h2>
           {eventList.length === 0 && (
             <p>
-              You're not part of any events. Find an event to join here{" "}
+              You're not part of any events. Find an event to join{" "}
               <Link style={{ color: "blue" }} to={"/event"}>
                 here!
               </Link>
@@ -133,7 +140,7 @@ function App() {
           </div>
         </>
       ) : (
-        <h2>Please login or register ^</h2>
+        <Navigate to={"/about-us"} />
       )}
     </div>
   );

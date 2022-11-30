@@ -16,15 +16,17 @@ function Card(props) {
             <h3>{props.title}</h3>
             <p className="card-desc">{props.desc}</p>
             {user &&
-              (user.myGroups.includes(props.cardId) ? (
+              (user[`${props.attribute}`].includes(props.cardId) ? (
                 <button
                   className="secondary-button"
                   style={{ marginBottom: "10px" }}
                 >
-                  Leave Group
+                  Leave {props.type}
                 </button>
               ) : (
-                <button style={{ marginBottom: "10px" }}>Join Group</button>
+                <button style={{ marginBottom: "10px" }}>
+                  Join {props.type}
+                </button>
               ))}
           </div>
         </div>

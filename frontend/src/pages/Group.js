@@ -3,6 +3,7 @@ import Modal from "react-modal";
 import { useParams } from "react-router-dom";
 import { UserContext } from "../UserContext";
 import CloseOutlinedIcon from "@mui/icons-material/CloseOutlined";
+import CheckIcon from "@mui/icons-material/Check";
 
 function Group() {
   const customStyles = {
@@ -24,7 +25,8 @@ function Group() {
 
   Modal.setAppElement("#root");
   const [modalIsOpen, setModalOpen] = useState(false);
-  const { user } = useContext(UserContext);
+  const [isMember, setIsMember] = useState(false);
+  const { user, setUser } = useContext(UserContext);
   const [groupInfo, setGroupInfo] = useState({});
   const [updatedGroupInfo, setUpdatedGroupInfo] = useState({
     desc: "",
@@ -32,6 +34,13 @@ function Group() {
     name: "",
   });
   const { id } = useParams();
+  useEffect(() => {
+    if (user) {
+      if (user.myGroups.includes(id)) {
+        setIsMember(true);
+      }
+    }
+  }, []);
   useEffect(() => {
     fetch(`${process.env.REACT_APP_API_SERVER}/group/${id}`)
       .then((res) => res.json())
@@ -72,6 +81,58 @@ function Group() {
           name: "",
         });
         closeModal();
+      });
+  };
+
+  const handleJoin = () => {
+    const reqBody = [...user.myGroups, id];
+    fetch(`${process.env.REACT_APP_API_SERVER}/user/${user.user}`, {
+      method: "PUT",
+      body: JSON.stringify({ myGroups: reqBody }),
+      headers: {
+        "Content-Type": "application/json",
+      },
+    })
+      .then((response) => {
+        return response.json();
+      })
+      .then((data) => {
+        if (data) {
+          setUser({
+            user: data._id,
+            name: data.name,
+            myEvents: data.myEvents,
+            myGroups: data.myGroups,
+            isAdmin: data.isAdmin,
+            loggedIn: true,
+          });
+        }
+      });
+  };
+
+  const handleLeave = () => {
+    const reqBody = user.myGroups.filter((group) => group !== id);
+    fetch(`${process.env.REACT_APP_API_SERVER}/user/${user.user}`, {
+      method: "PUT",
+      body: JSON.stringify({ myGroups: reqBody }),
+      headers: {
+        "Content-Type": "application/json",
+      },
+    })
+      .then((response) => {
+        return response.json();
+      })
+      .then((data) => {
+        if (data) {
+          setUser({
+            user: data._id,
+            name: data.name,
+            myEvents: data.myEvents,
+            myGroups: data.myGroups,
+            isAdmin: data.isAdmin,
+            loggedIn: true,
+          });
+        }
       });
   };
 
@@ -137,6 +198,23 @@ function Group() {
           <button onClick={() => openModal()} className="tertiary-button">
             Edit
           </button>
+        )}
+        {user && (
+          <div className="event-rsvp">
+            {!user.myGroups.includes(id) ? (
+              <button onClick={handleJoin}>Join Group</button>
+            ) : (
+              <>
+                <p>
+                  You are now part of the group{" "}
+                  <CheckIcon sx={{ color: "green" }} />
+                </p>
+                <button className="secondary-button" onClick={handleLeave}>
+                  Leave Group
+                </button>
+              </>
+            )}
+          </div>
         )}
       </div>
       <div>

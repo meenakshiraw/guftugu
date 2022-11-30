@@ -74,6 +74,7 @@ section header {
 
 .card-desc {
   flex-grow: 1;
+  padding: 30px;
 }
 
 .register-form {
@@ -123,6 +124,7 @@ button:hover {
 .tertiary-button {
   background-color: #aaaaaa;
   border: solid 1px #aaaaaa;
+  margin-bottom: 10px
 }
 
 .tertiary-button:hover {
@@ -137,7 +139,7 @@ button:hover {
 }
 
 .image {
-  
+  height: 400px;
   width: 100%;
   
 }
@@ -161,8 +163,9 @@ button:hover {
 }
 
 .container:hover .overlay {
+  backdrop-filter: blur(20px);
   opacity: 1;
-  backdrop-filter: blur(10px);
+  
 }
 
 .form-header {
@@ -210,8 +213,16 @@ button:hover {
 .event-rsvp {
   display: flex;
   align-items: center;
+  margin-bottom: 25px;
 }
 
 .event-rsvp p {
   margin-right: 20px;
+}
+
+.event-page {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  
 }

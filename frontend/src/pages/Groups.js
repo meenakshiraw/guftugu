@@ -8,6 +8,10 @@ function Groups() {
       .then((res) => res.json())
       .then((data) => setGroups([...data.group]));
   }, []);
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+  };
   return (
     <div className="group-grid">
       {groups.map((group) => (
@@ -17,7 +21,9 @@ function Groups() {
           title={group.name}
           link={`/group/${group._id}`}
           imgUrl={group.img}
-          desc={"just some description"}
+          desc={group.desc}
+          type={"group"}
+          attribute={"myGroups"}
         />
       ))}
     </div>

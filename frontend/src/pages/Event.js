@@ -1,12 +1,14 @@
 import React, { useEffect, useState, useContext } from "react";
 import CheckIcon from "@mui/icons-material/Check";
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate, Navigate } from "react-router-dom";
 import { UserContext } from "../UserContext";
 
 function Event() {
   const [eventInfo, setEventInfo] = useState({});
   const { user, setUser } = useContext(UserContext);
   const { id } = useParams();
+  const navigate = useNavigate();
+
   useEffect(() => {
     fetch(`${process.env.REACT_APP_API_SERVER}/event/${id}`)
       .then((res) => res.json())
@@ -63,6 +65,16 @@ function Event() {
         }
       });
   };
+
+  const handleDelete = () => {
+    fetch(`${process.env.REACT_APP_API_SERVER}/event/${id}`, {
+      method: "DELETE",
+    })
+      .then((response) => response.json())
+      .then((res) => {
+        navigate("/event");
+      });
+  };
   return (
     <div className="event-page">
       <h1>{eventInfo.name}</h1>
@@ -97,9 +109,14 @@ function Event() {
           <h4>Meeting Code: {eventInfo.meetingCode}</h4>
           <h4>Password: {eventInfo.meetingPswd}</h4>
           <a href={eventInfo.meetingURL}>
-            <h4>Link to join</h4>
+            <h4 style={{ color: "blue" }}>Link to join</h4>
           </a>
         </>
+      )}
+      {user && (
+        <button onClick={handleDelete} className="secondary-button">
+          Delete
+        </button>
       )}
     </div>
   );
