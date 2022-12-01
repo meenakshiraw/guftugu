@@ -1,70 +1,65 @@
-# Getting Started with Create React App
+## Guftugu 
+(Urdu word for conversation)
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+## Description
 
-## Available Scripts
+An online, virtual community for elderly South Asian (Urdu-speaking) individuals. There should already be some pre-existing groups/forums they can join after becoming a member. Members can make their own subgroups. Creators of subgroups default to being admins, they can add other users who have joined the group to become admins. Admins will have access to editing the group’s calendars of events. Admins can create calendar events to notify all members of the group—the event will basically hold a zoom link where everyone can meet and talk (kinda like clubhouse)
 
-In the project directory, you can run:
+This app will be built using the MERN Stack
 
-### `npm start`
+Models:
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+- Users (id: String, name: String, password: String, groups: Array of strings (strings will be the groupId))
+- Groups (name: String, members: Array of strings (strings will be userIds), events: Array of strings (strings will be eventIds)
+- Events (id: String, name: String, description: String, url: String)
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+Routes: 
 
-### `npm test`
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+URL | HTTP Verb | Action
+-- | -- | --
+/ | GET | landing page (if logged in--shows welcome page)
+/login | GET | login route (if logged in, then redirect to /) that allows users to sign in/up
+/groups | GET | groups route that shows list of all groups
+/myGroups | GET | myGroups route that shows list of all groups user is a part of
+/:id | GET/POST/PUT | specific group route (shows calendar of events in this group), announcements, and list of all the threads. Route where subgroups will be posted to and where edits can be made.
+/:id/:threadId | GET/POST/PUT/DELETE | specific thread route (shows calendar of events in this thread), announcements, and messages. Route where the threads/subgroup messages/calendar events are posted and edits can be made, and where the thread can be deleted
+/:id/:threadId/newEvent | GET | new calendar event route where you can create an event for this subgroup
+/:id/:threadId/:eventId | GET/POST/PUT/DELETE | specific calendar event route where you can view the event and its details, and post/put the edits and delete the event also
+/:id/:threadId/:eventId/edit | GET | edit route for the calendar event where you can edit the event and its details
+/:id/:threadId/:eventId/delete | GET | delete route for the calendar event where you can delete the event and its details
 
-### `npm run build`
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+## Wireframes
+Need to spend time fleshing out design. I feel like the more I develop the app, I'll get a better feel of the design.
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+![Screenshot 2022-11-01 at 10 01 13 PM](https://media.git.generalassemb.ly/user/43690/files/97969410-2c94-43b2-8b1f-8a9c5dbdde5b)
+![Screenshot 2022-11-01 at 10 03 32 PM](https://media.git.generalassemb.ly/user/43690/files/5a274b63-5a44-46f5-af35-e51a989f30a9)
+![Screenshot 2022-11-01 at 10 05 35 PM](https://media.git.generalassemb.ly/user/43690/files/0c05dbd6-36a4-498e-86dd-a75f839a2e37)
+![Screenshot 2022-11-01 at 10 06 17 PM](https://media.git.generalassemb.ly/user/43690/files/b897de12-47f0-440a-b864-1540f8650757)
+![Screenshot 2022-11-01 at 10 07 28 PM](https://media.git.generalassemb.ly/user/43690/files/c4921029-bb71-4901-83dd-80343bbca581)
+![Screenshot 2022-11-01 at 10 08 27 PM](https://media.git.generalassemb.ly/user/43690/files/52fac865-9ab9-4e0d-b3fb-d8d3ff073be4)
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
 
-### `npm run eject`
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+## User Stories
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+- As a user, I want to be able to hit the main website link and be told to login/sign up as a member
+- As a member, after logging in, I want to see just a personalized welcome page--any messages I missed in a thread, upcoming events
+- As a member, I want to enter into a group and be able to join any of the subgroups/threads/discussions so I stay notified
+- As a member I want to be able to make a subgroup/thread 
+- As a creator of a subgroup, I want to be able to make other people admins of the subgroup
+- As an admin of a subgroup, I want to be able to schedule calendar events for discussions (these calendar events will be basically zoom meetings where everyone can meet and greet)
+- As creator of a calendar event, I want to be able to edit the event
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+### MVP Goals
+- Responsive Website
+- login successfully
+- Perform full CRUD with calendar events
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+### Stretch Goals
+- Add a chatroom/box to the subgroups/threads for members to post messages
+- Use google oauth to create users
+- Use cookies and jwt for keeping in a logged session for a user (currently using useContext)
+- Connect to Zoom API and be able to make zoom meetings right there on the fly
 
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
