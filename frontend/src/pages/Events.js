@@ -72,7 +72,7 @@ function Events() {
     try {
       fetch(`${process.env.REACT_APP_API_SERVER}/event`, {
         method: "POST",
-        body: JSON.stringify({ ...reqBody }),
+        body: JSON.stringify({ ...reqBody, organizer: user.user }),
         headers: {
           "Content-Type": "application/json",
         },
@@ -96,13 +96,13 @@ function Events() {
         contentLabel="Example Modal"
       >
         <header className="form-header">
-          <h2>Create Group</h2>
+          <h2>Create Event</h2>
           <CloseOutlinedIcon
             className="close-button"
             onClick={() => closeModal()}
           />
         </header>
-        <form id="create-group" onSubmit={handleCreate}>
+        <form className="form-large" id="create-event" onSubmit={handleCreate}>
           <div className="form-row">
             <label htmlFor="name">Name:</label>
             <input
