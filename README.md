@@ -2,7 +2,7 @@
 (Urdu word for conversation)
 
 ## Description
-
+it is edited
 An online, virtual community for elderly South Asian (Urdu-speaking) individuals. There should already be some pre-existing groups/forums they can join after becoming a member. Members can make their own subgroups. Creators of subgroups default to being admins, they can add other users who have joined the group to become admins. Admins will have access to editing the group’s calendars of events. Admins can create calendar events to notify all members of the group—the event will basically hold a zoom link where everyone can meet and talk (kinda like clubhouse)
 
 This app will be built using the MERN Stack
